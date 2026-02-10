@@ -17,11 +17,13 @@ export function setLocalStorage(key, data) {
 
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-    qs(selector).addEventListener("touchend", (event) => {
+    const el = qs(selector);
+    if (!el) return;
+    el.addEventListener("touchend", (event) => {
         event.preventDefault();
         callback();
     });
-    qs(selector).addEventListener("click", callback);
+    el.addEventListener("click", callback);
 }
 
 // Pull parameters from the URL
@@ -52,20 +54,21 @@ export function renderWithTemplate(template, parentElement, callback, data) {
 }
 
 // Load templates and convert them into text.
+// Resolve path relative to this module so it works on GitHub Pages (subpath) and locally.
 async function loadTemplate(path) {
-    const result = await fetch(path);
+    const url = new URL(path, import.meta.url).href;
+    const result = await fetch(url);
     const template = await result.text();
-    return template
+    return template;
 }
 
 // Dynamically load the header and footer from the partials folder
 export async function loadHeaderFooter(callback) {
-    const headerElement = document.querySelector("header")
-    const footerElement = document.querySelector("footer")
+    const headerElement = document.querySelector("header");
+    const footerElement = document.querySelector("footer");
 
-
-    const headerTemplate = await loadTemplate("../partials/header.html")
-    const footerTemplate = await loadTemplate("../partials/footer.html")
+    const headerTemplate = await loadTemplate("../partials/header.html");
+    const footerTemplate = await loadTemplate("../partials/footer.html");
 
     renderWithTemplate(headerTemplate, headerElement, callback, null)
     renderWithTemplate(footerTemplate, footerElement)
