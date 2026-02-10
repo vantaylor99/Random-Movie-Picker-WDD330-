@@ -64,8 +64,8 @@ export async function loadHeaderFooter(callback) {
     const footerElement = document.querySelector("footer")
 
 
-    const headerTemplate = await loadTemplate("/partials/header.html")
-    const footerTemplate = await loadTemplate("/partials/footer.html")
+    const headerTemplate = await loadTemplate("./partials/header.html")
+    const footerTemplate = await loadTemplate("./partials/footer.html")
 
     renderWithTemplate(headerTemplate, headerElement, callback, null)
     renderWithTemplate(footerTemplate, footerElement)
