@@ -94,9 +94,9 @@
                     </div>
                 </fieldset>
 
-                <div>
-                    <fieldset class="year-range">
-                        <legend>Year Range</legend>
+                <fieldset>
+                    <legend>Year Range & Ratings</legend>
+                    <div class="year-range">
                         <div>
                             <label for="start-year-select">Start:</label>
                             <select id="start-year-select" name="start-year"></select>
@@ -106,8 +106,34 @@
                             <label for="end-year-select">End:</label>
                             <select id="end-year-select" name="end-year"></select>
                         </div>
-                    </fieldset>
-                </div>
+                    </div>
+
+                    <div class="ratings">
+                        <div class="pair">
+                            <label for="rating-g">G</label>
+                            <input id="rating-g" type="checkbox" name="rating" value="g">
+                        </div>
+
+                        <div class="pair">
+                            <label for="rating-pg">PG</label>
+                            <input id="rating-pg" type="checkbox" name="rating" value="pg">
+                        </div>
+
+                        <div class="pair">
+                            <label for="rating-pg13">PG-13</label>
+                            <input id="rating-pg13" type="checkbox" name="rating" value="pg-13">
+                        </div>
+
+                        <div class="pair">
+                            <label for="rating-r">R</label>
+                            <input id="rating-r" type="checkbox" name="rating" value="r">
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+                <fieldset></fieldset>
 
             </div>
 
