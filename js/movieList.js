@@ -23,6 +23,8 @@ function buildMovieTemplate(imgSrc, movieTitle, movieDescription, movieRating, v
                 <span class="stars">${stars}<span>
             </a>
             <p><strong>Runtime: </strong>${runTime}</p>
+        </div>
+    </div>
         `
     return template;
 }
