@@ -1,4 +1,5 @@
 import { qs } from "./util.mjs";
+import { setClick } from "./util.mjs";
 
 
 function buildYearOption(year) {
@@ -59,4 +60,20 @@ endYearElement.addEventListener("change", () => {
 });
 
 
-generateYearOptions()
+function getSelectedVibeItems() {
+    const checkboxes = document.querySelectorAll('input[name="vibe[]"]')
+    const checkboxArray = Array.from(checkboxes);
+
+    console.log(checkboxArray)
+
+    const selectedCheckboxes = checkboxArray.filter(box => box.checked);
+    console.log(selectedCheckboxes);
+
+    const checkboxValues = selectedCheckboxes.map(box => box.value);
+    console.log(checkboxValues);
+}
+
+
+setClick('#find-movies', getSelectedVibeItems)
+
+generateYearOptions();
