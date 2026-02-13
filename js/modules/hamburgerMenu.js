@@ -1,4 +1,4 @@
-import { qs, setClick } from "./js/util.mjs";
+import { qs, setClick } from "../util.mjs";
 
 
 export function setupHamburgerMenu() {

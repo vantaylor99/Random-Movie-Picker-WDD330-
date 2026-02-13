@@ -1,5 +1,5 @@
-import { qs } from "/js/util.mjs";
-import { renderWithTemplate } from "/js/util.mjs";
+import { qs } from "./util.mjs";
+import { renderWithTemplate } from "./util.mjs";
 import calculateRating from "./modules/calculateRating.mjs";
 
 function buildMovieTemplate(imgSrc, movieTitle, movieDescription, movieRating, vote_average, runTime, movieID) {
@@ -9,17 +9,17 @@ function buildMovieTemplate(imgSrc, movieTitle, movieDescription, movieRating, v
     const template = `
     <div class="home-movie-div">
         <div class="home-movie-col1">
-            <a href="/detailed_view/index.html?movieID=${movieID}">
+            <a href="detailed_view/index.html?movieID=${movieID}">
                 <img src="${imgSrc}" alt="Poster image of ${movieTitle}">
             </a>
-            <a href="/detailed_view/index.html?movieID=${movieID}">
+            <a href="detailed_view/index.html?movieID=${movieID}">
                 <h3>${movieTitle}</h3>
             </a>
             <p>${movieRating}</p>
         </div>
         <div class="home-movie-col2">
-            <p><strong><a href="/detailed_view/index.html?movieID=${movieID}">${movieTitle}: </a></strong>${movieDescription}</p>
-            <a href="/detailed_view/index.html?movieID=${movieID}">
+            <p><strong><a href="detailed_view/index.html?movieID=${movieID}">${movieTitle}: </a></strong>${movieDescription}</p>
+            <a href="detailed_view/index.html?movieID=${movieID}">
                 <span class="stars">${stars}<span>
             </a>
             <p><strong>Runtime: </strong>${runTime}</p>
