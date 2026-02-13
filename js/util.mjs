@@ -62,19 +62,16 @@ async function loadTemplate(path) {
     return template;
 }
 
-// Fix relative URLs in header when page is in a subfolder (e.g. detailed_view/)
-function fixHeaderPathsForSubpage(headerElement) {
+// Prefix relative paths in header when page is in a subfolder. <base> applies to static HTML;
+// for dynamically injected header we fix paths before inject so the right URL is requested.
+// See https://stackoverflow.com/questions/16316311/github-pages-and-relative-paths
+function prefixHeaderPaths(template) {
     const segments = location.pathname.split("/").filter(Boolean);
-    if (segments.length <= 2) return; // at repo root (e.g. /repo/index.html)
+    if (segments.length <= 2) return template;
     const prefix = "../".repeat(segments.length - 1);
-    headerElement.querySelectorAll("a[href], img[src]").forEach((el) => {
-        const href = el.getAttribute("href");
-        if (href && !/^(https?:|#|javascript:)/.test(href))
-            el.setAttribute("href", prefix + href);
-        const src = el.getAttribute("src");
-        if (src && !/^(https?:|data:)/.test(src))
-            el.setAttribute("src", prefix + src);
-    });
+    return template
+        .replace(/\shref="(?!https?:|#|javascript:)([^"]*)"/g, (_, p1) => ` href="${prefix}${p1}"`)
+        .replace(/\ssrc="(?!https?:|data:)([^"]*)"/g, (_, p1) => ` src="${prefix}${p1}"`);
 }
 
 // Dynamically load the header and footer from the partials folder
@@ -82,12 +79,11 @@ export async function loadHeaderFooter(callback) {
     const headerElement = document.querySelector("header");
     const footerElement = document.querySelector("footer");
 
-    const headerTemplate = await loadTemplate("../partials/header.html");
-    const footerTemplate = await loadTemplate("../partials/footer.html");
+    let headerTemplate = await loadTemplate("../partials/header.html");
+    headerTemplate = prefixHeaderPaths(headerTemplate);
 
     renderWithTemplate(headerTemplate, headerElement, callback, null);
-    fixHeaderPathsForSubpage(headerElement);
-    renderWithTemplate(footerTemplate, footerElement);
+    renderWithTemplate(await loadTemplate("../partials/footer.html"), footerElement);
 }
 
 // Self explanitory
