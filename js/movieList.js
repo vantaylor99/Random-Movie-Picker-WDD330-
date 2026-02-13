@@ -1,5 +1,5 @@
-import { qs } from "./util.mjs";
-import { renderWithTemplate } from "./util.mjs";
+import { qs } from "/js/util.mjs";
+import { renderWithTemplate } from "/js/util.mjs";
 import calculateRating from "./modules/calculateRating.mjs";
 
 function buildMovieTemplate(imgSrc, movieTitle, movieDescription, movieRating, vote_average, runTime, movieID) {

@@ -1,5 +1,5 @@
-import { qs } from "./util.mjs";
-import { setClick } from "./util.mjs";
+import { qs } from "/js/util.mjs";
+import { setClick } from "/js/util.mjs";
 
 
 function buildYearOption(year) {

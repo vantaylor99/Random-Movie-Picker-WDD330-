@@ -1,7 +1,7 @@
-import { qs } from "./util.mjs";
-import { renderWithTemplate } from "./util.mjs";
-import calculateRating from "./modules/calculateRating.mjs";
-import getMovieLink from "./modules/getMovieLink.mjs";
+import { qs } from "/js/util.mjs";
+import { renderWithTemplate } from "/js/util.mjs";
+import calculateRating from "/js/modules/calculateRating.mjs";
+import getMovieLink from "/js/modules/getMovieLink.mjs";
 
 function buildMovieDetailViewTemplate(backdropPath, movieTitle, movieDescription, movieRating, vote_average, runTime, posterPath, movieLink) {
 
