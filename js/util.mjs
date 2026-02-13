@@ -62,6 +62,21 @@ async function loadTemplate(path) {
     return template;
 }
 
+// Fix relative URLs in header when page is in a subfolder (e.g. detailed_view/)
+function fixHeaderPathsForSubpage(headerElement) {
+    const segments = location.pathname.split("/").filter(Boolean);
+    if (segments.length <= 2) return; // at repo root (e.g. /repo/index.html)
+    const prefix = "../".repeat(segments.length - 1);
+    headerElement.querySelectorAll("a[href], img[src]").forEach((el) => {
+        const href = el.getAttribute("href");
+        if (href && !/^(https?:|#|javascript:)/.test(href))
+            el.setAttribute("href", prefix + href);
+        const src = el.getAttribute("src");
+        if (src && !/^(https?:|data:)/.test(src))
+            el.setAttribute("src", prefix + src);
+    });
+}
+
 // Dynamically load the header and footer from the partials folder
 export async function loadHeaderFooter(callback) {
     const headerElement = document.querySelector("header");
@@ -70,8 +85,9 @@ export async function loadHeaderFooter(callback) {
     const headerTemplate = await loadTemplate("../partials/header.html");
     const footerTemplate = await loadTemplate("../partials/footer.html");
 
-    renderWithTemplate(headerTemplate, headerElement, callback, null)
-    renderWithTemplate(footerTemplate, footerElement)
+    renderWithTemplate(headerTemplate, headerElement, callback, null);
+    fixHeaderPathsForSubpage(headerElement);
+    renderWithTemplate(footerTemplate, footerElement);
 }
 
 // Self explanitory
