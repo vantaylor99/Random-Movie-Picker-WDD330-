@@ -1,4 +1,5 @@
 import { VIBE_MAP } from "./constants.js";
+import { BASE_PATH } from "../config.env.js";
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -62,17 +63,9 @@ async function loadTemplate(path) {
     return template;
 }
 
-// Prefix relative paths in header when page is in a subfolder (e.g. detailed_view/).
-// <base> on the root page handles resolution there; subpages use document-relative asset
-// paths (../) and need the header's image/link paths prefixed so they hit the repo root.
-// See https://stackoverflow.com/questions/16316311/github-pages-and-relative-paths
-function prefixHeaderPaths(template) {
-    const segments = location.pathname.split("/").filter(Boolean);
-    if (segments.length <= 2) return template;
-    const prefix = "../".repeat(segments.length - 1);
-    return template
-        .replace(/\shref="(?!https?:|#|javascript:)([^"]+)"/g, (_, p1) => ` href="${prefix}${p1}"`)
-        .replace(/\ssrc="(?!https?:|data:)([^"]+)"/g, (_, p1) => ` src="${prefix}${p1}"`);
+// Resolve __BASE_PATH__ in templates using config.env.js (local vs prod).
+function resolveBasePath(template) {
+    return template.replace(/__BASE_PATH__/g, BASE_PATH);
 }
 
 // Dynamically load the header and footer from the partials folder
@@ -81,10 +74,11 @@ export async function loadHeaderFooter(callback) {
     const footerElement = document.querySelector("footer");
 
     let headerTemplate = await loadTemplate("../partials/header.html");
-    headerTemplate = prefixHeaderPaths(headerTemplate);
+    headerTemplate = resolveBasePath(headerTemplate);
 
     renderWithTemplate(headerTemplate, headerElement, callback, null);
-    renderWithTemplate(await loadTemplate("../partials/footer.html"), footerElement);
+    let footerTemplate = await loadTemplate("../partials/footer.html");
+    renderWithTemplate(resolveBasePath(footerTemplate), footerElement, null, null);
 }
 
 // Self explanitory
