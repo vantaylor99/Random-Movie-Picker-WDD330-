@@ -64,8 +64,10 @@ async function loadTemplate(path) {
 
 // Prefix relative paths in header when page is in a subfolder. <base> applies to static HTML;
 // for dynamically injected header we fix paths before inject so the right URL is requested.
+// On GitHub Pages we set <base href="/repo-name/"> so leave paths as-is; locally we prefix when in a subfolder.
 // See https://stackoverflow.com/questions/16316311/github-pages-and-relative-paths
 function prefixHeaderPaths(template) {
+    if (location.hostname.endsWith(".github.io")) return template;
     const segments = location.pathname.split("/").filter(Boolean);
     if (segments.length <= 2) return template;
     const prefix = "../".repeat(segments.length - 1);

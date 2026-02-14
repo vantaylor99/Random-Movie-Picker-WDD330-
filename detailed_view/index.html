@@ -4,13 +4,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- GitHub Pages: root-relative links must use <base> so they resolve from project root, not domain root. -->
+    <script>
+        (function(){
+            var seg = location.pathname.split("/").filter(Boolean)[0];
+            var basePath = (location.hostname.endsWith(".github.io") && seg) ? "/" + seg + "/" : "/";
+            document.write("<base href=\"" + basePath + "\">");
+        })();
+    </script>
     <title>What to Watch Next | Home</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/larger.css" />
-    <script src="../config.local.js"></script>
-    <script src="../js/main.js" type="module"></script>
-    <script src="../js/modules/hamburgerMenu.js" type="module"></script>
-    <script src="../js/details.js" type="module"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/larger.css" />
+    <script src="config.local.js"></script>
+    <script src="js/main.js" type="module"></script>
+    <script src="js/modules/hamburgerMenu.js" type="module"></script>
+    <script src="js/details.js" type="module"></script>
 
 
 
