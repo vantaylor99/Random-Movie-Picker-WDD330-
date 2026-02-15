@@ -276,12 +276,23 @@ fieldset {
 }
 
 
-.backdrop {
+.backdrop-div {
     display: flex;
-    width: 70%;
+    justify-content: center;
+}
+
+.backdrop-div a {
+    display: block;
+    width: 85%;
+    max-width: 900px;
+}
+
+.backdrop {
+    display: block;
+    width: 100%;
+    height: auto;
     border-radius: 1rem;
-    margin: 1rem;
-    justify-self: center;
+    margin: 1rem 0;
 }
 
 .movie-details-img {

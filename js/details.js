@@ -8,9 +8,11 @@ function buildMovieDetailViewTemplate(backdropPath, movieTitle, movieDescription
     const stars = calculateRating(vote_average);
 
     const template = `
-    <a href="${movieLink}">
-        <img src="${backdropPath}" alt="Cover image of ${movieTitle}" class="backdrop">
-    </a>
+    <div class="backdrop-div">
+        <a href="${movieLink}">
+            <img src="${backdropPath}" alt="Cover image of ${movieTitle}" class="backdrop">
+        </a>
+    </div>
     <div class="movie-details-columns">
         <div class="movie-details-col1">
             <p><strong><a href="${movieLink}">${movieTitle}: </a></strong>${movieDescription}</p>

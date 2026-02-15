@@ -1,5 +1,6 @@
 import { qs } from "./util.mjs";
 import { setClick } from "./util.mjs";
+import getCheckboxValues from "./modules/getCheckboxValues.mjs";
 
 
 function buildYearOption(year) {
@@ -60,20 +61,28 @@ endYearElement.addEventListener("change", () => {
 });
 
 
-function getSelectedVibeItems() {
-    const checkboxes = document.querySelectorAll('input[name="vibe[]"]')
-    const checkboxArray = Array.from(checkboxes);
-
-    console.log(checkboxArray)
-
-    const selectedCheckboxes = checkboxArray.filter(box => box.checked);
-    console.log(selectedCheckboxes);
-
-    const checkboxValues = selectedCheckboxes.map(box => box.value);
-    console.log(checkboxValues);
+function getSelectedYearRange() {
+    return {
+        startYear: Number(startYearElement.value),
+        endYear: Number(endYearElement.value)
+    };
 }
 
 
-setClick('#find-movies', getSelectedVibeItems)
+function getFormEntryObject() {
+    const object = {
+        vibes: getCheckboxValues("vibe[]"),
+        yearRange: getSelectedYearRange(),
+        ratings: getCheckboxValues("rating")
+    }
+    console.log(object)
+}
+
+
+
+
+setClick('#find-movies', getFormEntryObject)
+
+
 
 generateYearOptions();

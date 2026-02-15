@@ -122,3 +122,10 @@ export function vibeToWithGenres(vibeKey) {
 export function getVibeKeys() {
     return Object.keys(VIBE_MAP);
 }
+
+
+export function getRandomNumberFromMax(pageCount) {
+    const maxPageLimit = Math.min(pageCount, 500);
+    const randomNumber = (Math.floor(Math.random() * maxPageLimit));
+    return randomNumber;
+}
